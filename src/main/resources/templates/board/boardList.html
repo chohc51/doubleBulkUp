@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum</title>
+  <link rel="stylesheet" th:href="@{/css/Forum.css}" />
+</head>
+
+<body>
+  <div id="upper">
+    <div id="btnSet">
+      <button class="goBtn">
+        <div class="imgB">
+          <img
+            class="btnImg"
+            src="https://cdn-icons-png.flaticon.com/128/7776/7776763.png"
+          />
+          <b>게시판</b>
+        </div>
+      </button>
+      <button class="goBtn">
+        <div class="imgB">
+          <img
+            class="btnImg"
+            src="https://cdn-icons-png.flaticon.com/128/7744/7744130.png"
+          />
+          <b>이벤트</b>
+        </div>
+      </button>
+      <button class="goBtn">
+        <div class="imgB">
+          <img
+            class="btnImg"
+            src="https://cdn-icons-png.flaticon.com/128/7126/7126749.png"
+          />
+          <b>헬스장</b>
+        </div>
+      </button>
+    </div>
+    <div id="leftLogo">
+      <div>
+        <button class="upperBtn2" type="button">
+          <img id="logo" src="Logo.png" />
+        </button>
+      </div>
+    </div>
+    <div id="icon">
+      <div>
+        <button class="upperBtn" type="button">
+          <img id="i4" src="https://cdn-icons-png.flaticon.com/128/69/69524.png" />
+        </button>
+      </div>
+      <div>
+        <button class="upperBtn" type="button">
+          <img id="i1" src="https://cdn-icons-png.flaticon.com/128/7747/7747974.png" />
+        </button>
+      </div>
+      <div>
+        <button class="upperBtn" type="button">
+          <img id="i2" src="https://cdn-icons-png.flaticon.com/128/747/747376.png" />
+        </button>
+      </div>
+      <div>
+        <button class="upperBtn" id="listBtn" type="button">
+          <img id="i3" src="https://cdn-icons-png.flaticon.com/128/1827/1827914.png" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="container">
+    <!-- 검색 -->
+    <div id="inputBox">
+      <form action="/board/search" method="GET" role="search">
+        <input type="text" id="SearchBox" name="keyword"/>
+        <button class="searchBtn" type="submit" th:onclick="|location.href='@{/board/search}'|">
+          <img id="searchImg" src="https://cdn-icons-png.flaticon.com/512/71/71403.png" />
+        </button>
+      </form>
+    </div>
+
+    <div id="infoBox">
+      <div id="postListWrap">
+        <div class="postList">
+          <div class="top">
+            <div class="num">No</div>
+            <div class="title">제목</div>
+            <div class="writer">글쓴이</div>
+            <div class="date">작성일</div>
+            <div class="like">♥</div>
+          </div>
+          <th:block th:each="board : ${boards}">
+            <div>
+                <div class="num" th:text="${board.getBoardId()}"></div>
+                <div class="title">
+                  <a th:text="${board.getBoardTitle()}"
+                     th:href="@{/board/{id} (id=${board.getBoardId()})}"></a>
+                </div>
+              <div class="writer" id="wContent" th:text="${board.getUserName()}">username</div>
+              <div class="date" id="dContent" th:text="${board.getDateTime()}">2023.6.3</div>
+              <div class="like" id="lContent" th:text="${board.getBoardLike()}"></div>
+            </div>
+          </th:block>
+        </div>
+        <div class="postPage"> <!--복잡하면 이거 빼고 그냥 한 페이지에 다 출력해도 돼-->
+          <a href="#" class="bt First"><<</a>
+          <a href="#" class="bt Prev"><</a>
+          <a href="#" class="num on">1</a>
+          <a href="#" class="num">2</a>
+          <a href="#" class="num">3</a>
+          <a href="#" class="num">4</a>
+          <a href="#" class="num">5</a>
+          <a href="#" class="bt Next">></a>
+          <a href="#" class="bt Last">>></a>
+        </div>
+        <div class="postBtn">
+          <a th:href="@{/board/new}" class="on">등록</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" th:src="@{/css/Toolbar.js}"></script>
+</body>
+
+</html>

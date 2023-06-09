@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/SignUpT.css}" />
+  </head>
+  <body style="background-color: #1e1e1e">
+    <div id="goLogin">
+      <b id="already">Already have an account?</b>
+      <button id="loginBtn" th:onclick="|location.href='@{/user/login}'|">Login</button>
+    </div>
+    <div id="title">Sign Up</div>
+    <div id="type">-- TRAINER --</div>
+    <form th:action="@{/user/trainer}" action="/user/trainer" th:object="${trainer}" method="post">
+      <div class="register">
+        <b class="info">Create your ID</b>
+        <div class="inputBox">
+          <input th:field="*{trainerId}" id="newId" placeholder="ID" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Create your password</b>
+        <div class="inputBox">
+          <input th:field="*{password}" id="newPw" type="password" placeholder="Password" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Enter your name</b>
+        <div class="inputBox">
+          <input th:field="*{trainerName}" id="newName" placeholder="Name" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Select your gender</b>
+        <div class="btnSet">
+        <div th:each="type : ${gender}" class="form-check form-check-inline" id="btn">
+          <input
+            type="radio"
+            name="genderBtn"
+            th:field="*{gender}"
+            th:value="${type.name()}"
+            class="form-check-input">
+          <label
+            th:for="${#ids.prev('gender')}"
+            th:text="${type.value}"
+            class="form-check-label">
+            MALE</label>
+        </div>
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Enter your e-mail</b>
+        <div class="inputBox">
+          <input th:field="*{trainerEmail}" id="newEmail" placeholder="E-mail" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Enter your date of birth</b>
+        <div class="inputBox">
+          <input th:field="*{trainerBirth}" id="newBd" type="date" value="2023-06-24" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Enter your phone number</b>
+        <div class="inputBox">
+          <input th:field="*{trainerPhone}" id="newTel" type="tel" placeholder="xxx-xxxx-xxxx" />
+        </div>
+      </div>
+      <div class="register">
+        <b class="info">Enter your gym name</b>
+        <div class="inputBox">
+          <input th:field="*{gymName}" id="newGym" placeholder="Gym name" />
+        </div>
+      </div>
+      <div id="complete">
+        <button id="completeBtn" type="submit">Complete</button>
+      </div>
+    </form>
+  </body>
+</html>

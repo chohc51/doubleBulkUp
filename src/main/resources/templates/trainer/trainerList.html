@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchTrainer</title>
+    <link rel="stylesheet" th:href="@{/css/SearchTrainer.css}" />
+</head>
+<body>
+    <div id="container">
+        <div id="inputBox">
+            <form th:action="@{/trainer/search}" method="GET" role="search">
+                <input id="SearchBox" name="keyword" />
+                <button class="searchBtn" type="submit" th:onclick="|location.href='@{/trainer/search}'|">
+                    <img id="searchImg" src="https://cdn-icons-png.flaticon.com/512/71/71403.png" />
+                </button>
+            </form>
+        </div>
+        <div id="infoBox">
+            <div id="trainerList">
+                <div id="trainer1" th:each="trainer : ${trainers}">
+                    <img id="trainerImg" th:src="@{/img/user/} + ${trainer.getTrainerPicture()}"/>
+                    <div id="trainerInfo">
+                        <button class="trainerName" type="button"
+                                th:text="${trainer.getUserName()}"
+                                th:onclick="|location.href='@{/trainer/{id} (id=${trainer.getId()})}'|"></button>
+                        <br>
+                        <p>소속 헬스장 이름 : <span  th:text="${trainer.getGymName()}"></span></p>
+                        <p>근무 시간 : <span  th:text="${trainer.getTrainerWorkTime()}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
